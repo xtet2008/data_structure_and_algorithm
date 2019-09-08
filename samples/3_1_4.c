@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include "../structure/Seqstack.h"
 
+//?????????ABCDEFGHIJ??? JIHGFEDCBA
 main(){
     SeqStk stk;
     int i;

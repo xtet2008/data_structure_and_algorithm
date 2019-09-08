@@ -32,7 +32,7 @@ void main(){
         Push(Stk, i);
     }
 
-    ReverseList(Stk); //TODO:执行函数数不知为啥不会往下执行了
+    ReverseList(Stk);
 
     printf("\nStack Pop");
     while(!EmptyStack(Stk)){
