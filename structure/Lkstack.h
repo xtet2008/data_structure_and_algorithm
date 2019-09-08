@@ -1,7 +1,12 @@
 #include<stdlib.h>
 // #define NULL 0xFFFFFFFF
 
-//Õ»Á´±í
+/* Õ»Á´±í
+Empty_stack: head->NULL   (head->next=NULL)
+Push: A£¬B£¬C£¬D£¬E
+Push_stack: head->E->D->C->B->A->NULL   (A->next=NULL)
+Pop£ºE£¬D£¬C£¬B£¬A
+*/
 typedef int DataType; 
 typedef struct node
 {

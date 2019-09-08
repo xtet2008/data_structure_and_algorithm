@@ -4,7 +4,13 @@
 typedef int DataType; //用int代替 DataType 结构型，不然结构变量不能使用 != 或 == 操作符判断
 const int maxsize=4;
 
-//顺序队列
+/*顺序队列
+data：[0]，[1]，[2]，[...]，[maxsize-1]
+empty: front=0; rear=0;
+full:  rear=maxsize-1
+push：rear++
+pop：front++
+*/
 typedef struct seqqueu
 {
     DataType data[20]; //TODO: data[maxsize]会提示出错，只能填数字
@@ -12,7 +18,18 @@ typedef struct seqqueu
     int rear; //队列尾指针，取值范围 0 ~ (mazsize-1)
 }SeqQue;
 
-//循环队列
+
+
+/*循环队列
+data：[0]，[1]，[2]，[...]，[maxsize-1]
+init: front=0; rear=0;
+push: rear = (rear+1)%maxsize
+pop:  front = (front+1)%maxsize
+getHead: Get data【(front+1)%maxsize】
+empty: front == rear;
+full:  (rear+1)%maxsize == front
+最大存储容量: maxsize-1，因为要少用一个元素空间，当只剩下一个空间时认为尾指针，追上了首指针，判定为队满（否则除满和队空不好区分)
+*/
 typedef struct cycqueue
 {
     DataType data[4]; //TODO: data[maxsize]

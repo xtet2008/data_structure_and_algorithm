@@ -14,7 +14,13 @@ typedef struct
 */
 typedef int DataType; //用int代替 DataType 结构型，不然结构变量不能使用 != 或 == 操作符判断
 
-/* 顺序表 */
+/* 顺序表 
+data：[0]，[1]，[2]，[...]，[maxsize-1]
+empty: length=0
+full:  length=maxsize-1
+insert：length++
+delete：length--
+*/
 const int Maxsize = 7;
 typedef struct 
 {
@@ -64,7 +70,13 @@ int LocateSeqList(SeqList L, DataType x)
 
 
 
-/* 单链表 */
+/* 单链表 
+Node_head -> Node_A -> Node_B -> ... -> Node_X
+head(头结点)->首结点->             ... -> 尾结点(Node_X.next=NULL)
+Empty：Node_head.next = NULL
+insert：Node_new.next=Node_prior.next; Node_prior.next =Node_new
+delete：Node_prior.next=Node_delete.next; free(Node_delete)
+*/
 typedef struct node
 {
     DataType data;    // 数据域
@@ -263,7 +275,20 @@ void PurgeLinkList(LinkList head)
 
 
 
-/* 双链表(双向循环链表) */
+/* 循环链表
+特点：最后一个结点指针指向第一个结点，从任一结点出发能够扫描整个链表
+Node_head -> Node_A -> Node_B -> ... -> Node_X -> Node_head
+head(头结点)->首结点->             ... -> 尾结点(Node_X.next=Node_head)
+*/
+
+
+/* 双链表(双向循环链表) 
+Node_head <-> Node_A <-> Node_B <-> ... <-> Node_X <-> Node_head
+head(头结点)<->首结点->             ... <-> 尾结点(Node_X.next=Node_head)
+
+初始化后，空的链表头 (Node_head.next=Node_head and Node_head.prior=Node_head)
+Node_head <-> Node_head
+*/
 typedef struct dbnode
 {
     DataType data; // 数据域

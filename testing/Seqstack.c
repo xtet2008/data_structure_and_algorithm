@@ -1,4 +1,4 @@
-#include "Seqstack.h"
+#include "../structure/Seqstack.h"
 
 void main(void){
     SeqStk *S;

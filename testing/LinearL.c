@@ -1,4 +1,4 @@
-#include "LinearL.h"
+#include "../structure/LinearL.h"
 
 void main(void){
     //Ë³Ðò±í

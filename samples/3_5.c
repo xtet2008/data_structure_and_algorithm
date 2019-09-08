@@ -31,11 +31,10 @@ void main(){
         printf("，%d", i);
         Push(Stk, i);
     }
-    printf("\n");
 
     ReverseList(Stk); //TODO:执行函数数不知为啥不会往下执行了
 
-    printf("Stack Pop");
+    printf("\nStack Pop");
     while(!EmptyStack(Stk)){
         printf("，%d", GetTop(Stk));
         Pop(Stk);
