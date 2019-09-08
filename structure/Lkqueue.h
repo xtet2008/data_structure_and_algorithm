@@ -72,6 +72,7 @@ int OutQueue(LkQue *LQ)
 }
 
 DataType GetHead(LkQue LQ)
+//取队列首元素
 {
     LkQueNode *temp;
     if(EmptyQueue(LQ)){

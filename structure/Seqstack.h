@@ -10,10 +10,10 @@ push：top++
 pop：top--
 full:  top=maxsize-1
 */
-const int maxsize = 50;  //顺序栈的容量
+const int maxsize = 5;  //顺序栈的容量
 typedef struct seqstack
 {
-    DataType data[50]; // 存储栈中数据元素的数组
+    DataType data[5]; // 存储栈中数据元素的数组
     int top; // 标志栈顶位置的变量
 }SeqStk;
 
