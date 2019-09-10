@@ -31,6 +31,8 @@ typedef struct ttnode
 
 
 
+
+
 /*
 链队列，专门为 DataType为 Bintree而写的
 LkQue -> LkQueNode_A -> LkQueNode_B -> ... -> LkQueNode_X
@@ -112,6 +114,79 @@ BtData GetHead(LkQue LQ)
     }
 }
 
+
+
+
+/* 栈链表，专门为 DataType为 Bintree而写的
+Empty_stack: head->NULL   (head->next=NULL)
+Push: A，B，C，D，E
+Push_stack: head->E->D->C->B->A->NULL   (A->next=NULL)
+Pop：E，D，C，B，A
+*/
+typedef BinTree BtData; //专门为Bintree而写的
+typedef struct node
+{
+    BtData data;
+    struct node *next;
+}LkStk;
+
+void InitStack(LkStk *LS)
+//初始化
+{
+    LS = (LkStk *)malloc(sizeof(LkStk));
+    LS->next = NULL; //创建一个空栈
+}
+
+int EmptyStack(LkStk *LS)
+//判断是否空栈，是1，否0
+{
+    if(LS->next==NULL){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
+void Push(LkStk *LS, BtData x)
+//进栈
+{
+    LkStk *temp;
+    temp = (LkStk *)malloc(sizeof(LkStk)); // temp指向申请的新结点
+    temp->data = x; //新结点的data域赋值为x
+    temp->next = LS->next; // temp的next域指向原来栈的顶结点
+    LS->next = temp; //指向新的栈顶结点
+}
+
+int Pop(LkStk *LS)
+//出栈
+{
+    LkStk *temp;
+    if(!EmptyStack(LS)){
+        temp = LS->next; // temp指向栈顶结点
+        LS->next = temp->next; //原栈顶的下一个结点为新的栈顶
+        free(temp);
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
+DataType GetTop(LkStk *LS)
+//取栈顶元素
+{
+    if(!EmptyStack(LS)){
+        return LS->next->data; //若栈非空，返回栈顶数据元素
+    }else{
+        return NULL; //否则返回空元素
+    }
+}
+
+
+
+/* 
+                    二叉树相关的具体算法思路
+================================================================= 
+*/
 BinTree CreateTree()
 //循环交互式建树
 {
@@ -161,27 +236,6 @@ BinTree GetLast(BinTree bt)
 //找到最后一个子树
 {return bt;}
 
-void insert(BinTree bt, DataType val)
-//插入新节点（先插入左边节点，如果左边为空再往右边插入，如果左右都不为空，则插入左节点作为左孩子
-{
-    if (bt->data == NULL){
-        bt->data = val; // 如果是空树的话，则当成 root 节点赋值
-    }else{
-        BinTree new_node = (BinTree)malloc(sizeof(BinTree));
-        new_node->data = val;
-        new_node->lchild = NULL;
-        new_node->rchild = NULL;
-        if(bt->lchild == NULL){
-            bt->lchild = new_node;
-        }else if(bt->rchild == NULL){
-            bt->rchild = new_node;
-        }else{
-            printf("\n Tree has full child, can not insert now. ");
-        }
-    }
-
-}
-
 void visit(BinTree bt)
 //访问树结点存储的数据
 {
@@ -195,6 +249,27 @@ void preorder(BinTree bt)
         visit(bt);
         preorder(bt->lchild);
         preorder(bt->rchild);
+    }
+}
+
+void preorder2(BinTree bt)
+//非递归先序遍历二叉树（利用栈的先进左、右子树，看出右、左子树的我实现）：root，left，right
+{
+    if (bt==NULL){return;}
+
+    LkStk *LS;
+    InitStack(LS);
+    BinTree p = bt;
+    while(p!=NULL || !EmptyStack(LS)){
+        if (p!=NULL){
+            visit(p);
+            Push(LS, p);
+            p = p->lchild;
+        }else{
+            p = GetTop(LS);
+            Pop(LS);
+            p = p->rchild;
+        }
     }
 }
 
@@ -249,3 +324,42 @@ int Height(BinTree bt)
     }
 }
 
+/*
+char a[10] = {'A', 'B', 'D', 'E', 'G', 'C', 'F'}; //先序列
+char b[10] = {'D', 'B', 'G', 'E', 'A', 'C', 'F'}; //中序列
+CreateTree2(a, b, 0, 6, 0, 6) //Output Binary Tree：
+          A
+         / \
+        B    C
+       / \    \
+      D  E     F
+         /
+        G
+level_order = {'A', 'B', 'C', 'D', 'E', 'F', G'} // 层序遍历结果
+*/
+BinTree CreateTree2(char a[], char b[], int i, int j, int m, int n) //TODO: check 不太稳定，有bug，有空看一下为什么建成的树多几个结点
+//根据先序和中序序列，生成一个二叉树
+//数组a存储先序序列，i和j分别是数组a的下标的上、下界
+//数组b存储中序序列，m和n分别是数组b的下标的上、下界
+{
+    if(n<0) {return NULL;}
+
+    BinTree p = malloc(sizeof(BinTree));
+    p->data=a[i]; // 建立根结点，先序列的第1个元素，就是根结点
+    
+    int k=m; //k代表中序列的第1个元素
+    while(k<=n && (b[k]!=a[i])) {k++;} //从中序列的第1个元素开始找，找到根结点在中序列的位置    
+    if(k>n){
+        printf("\n在中序列中未找到节点：%c", a[i]); //如果未找到
+    }else{
+    
+        //找到了，就为其递归创建左、右孩子结点
+        p->lchild = CreateTree2(a, b, i+1, i+k-m, m, k-1);
+        p->rchild = CreateTree2(a, b, i+k-m+1, j, k+1, n);
+            return p; // 返回根结点指针
+
+    }
+    
+}   
+
+//TODO: 根据中序和先序序列，生成一个二叉树
