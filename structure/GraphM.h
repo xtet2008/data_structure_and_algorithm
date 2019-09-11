@@ -88,7 +88,7 @@ void CreateGraph(Graph *g)
         scanf("%d %d %d", &v1, &v2, &weight); // 读入边（顶点对）和权值
         if(v1 || v2 || weight){
             i++;
-            g->arcnum = i;
+            g->arcnum++;
             g->arcs[v1][v2] = weight;
             g->arcs[v2][v1] = weight; //因为是无向图，所以两点之间要生成两个顶点对（边）
         }else{
