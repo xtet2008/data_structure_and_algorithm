@@ -38,9 +38,10 @@ typedef struct gp
 }Graph;
 
 
-
+/*建立有向图的邻接表算法
+先创建顶点数组，并初始化所有顶点信息权值为无穷大（代表无边），然后再依次输入各顶点对（边）
+*/
 void CreateAdjlist(Graph *g)
-//建立有向图的邻接表算法
 {
     int V1, V2;
     ArcNode *p;
@@ -63,8 +64,8 @@ void CreateAdjlist(Graph *g)
         if(V1 || V2){
             p = (ArcNode *)malloc(sizeof(ArcNode));//生成V2的边结点
             p->adjvex = V2;
-
             p->nextarc = g->adjlist[V1].firstarc; // 将新结点V2 链到 V1的单链表中
+            
             g->adjlist[V1].firstarc = p; //相当于前插，先把新结点的p.nextarc指向g的第一条边，然后再用g的第一条边指向新的结点p
             g->arcnum +=1;
         }else{
@@ -72,3 +73,20 @@ void CreateAdjlist(Graph *g)
         }
     }
 }
+
+/*邻接表图的深度优先搜索
+沿着某个顶点搜索，并且每次访问过后将顶点存起来代表着已经访问过了，然后再继续访问下一个顶点
+*/
+void DFS(Graph g, int v, int *visited[])
+{
+    ArcNode *p;
+    printf("，%d", v); //访问顶点
+    visited[v] = 1; //代码着已经访问过了
+    p = g.adjlist[v].firstarc;
+    while (p!=NULL){
+        if(!visited[p->adjvex]){
+            DFS(g, p->adjvex, visited);
+        }
+        p=p->nextarc;
+    }
+}   

@@ -96,3 +96,20 @@ void CreateGraph(Graph *g)
         }
     }
 }
+
+
+
+/*邻接矩阵图的深度优先搜索
+沿着某个顶点搜索，并且每次访问过后将顶点存起来代表着已经访问过了，然后再继续访问下一个顶点
+*/
+void DFS(Graph *g, int v, int *visited[])
+{
+    int j;
+    printf("，%d", v); //访问顶点
+    visited[v] = 1; //代码着已经访问过了
+    for(j=0; j<g->vexnum; j++){
+        if (g->arcs[v][j] && !visited[j]){ //如果v与j相邻，且j未被访问
+            DFS(g, j, visited); //递归调用j
+        }
+    }
+}   
