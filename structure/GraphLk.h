@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include<stdio.h>
+#include "Lkqueue.h"
 
 /* 邻接表表示图
      V0
@@ -74,7 +75,7 @@ void CreateAdjlist(Graph *g)
     }
 }
 
-/*邻接表图的深度优先搜索
+/*邻接表图的深度优先搜索(类似于树的先序遍历)
 沿着某个顶点搜索，并且每次访问过后将顶点存起来代表着已经访问过了，然后再继续访问下一个顶点
 */
 void DFS(Graph g, int v, int *visited[])
@@ -90,3 +91,30 @@ void DFS(Graph g, int v, int *visited[])
         p=p->nextarc;
     }
 }   
+
+/*邻接表图的广度优先搜索(类似于树的层序遍历)
+通过队列，依次把各节点入队，并出队后访问各子节点
+*/
+void BFS(Graph g, int v, int *visited[])
+{   
+    ArcNode *p; //表结点
+    LkQue Q; //Q为链对列
+    InitQueue(&Q);
+    printf("，%d", v);
+    visited[v]=1; //置已访问标志
+    EnQueue(&Q, v); //访问过的顶点入队列
+    while (!EmptyQueue(Q)){
+        v = GetHead(Q);
+        OutQueue(&Q); //顶点出队列
+        p = g.adjlist[v].firstarc; //找到v的第一个邻结点
+        while(p!=NULL){
+            if(!visited[p->adjvex]){
+                //访问各节点
+                printf("，%d", p->adjvex);
+                visited[p->adjvex]=1;
+                EnQueue(&Q, p->adjvex);
+            }
+            p = p->nextarc; //沿着v的邻接点链表顺序搜索
+        }
+    }
+}

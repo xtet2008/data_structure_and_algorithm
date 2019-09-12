@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include<stdio.h>
+#include "Lkqueue.h"
 
 /* 邻接矩阵表示图
 通过两顶点之间的二维数据值=0或1来判断是否有边，例如：(V0, V1)=1,代表从顶点V0至顶点V1之间有边
@@ -99,7 +100,7 @@ void CreateGraph(Graph *g)
 
 
 
-/*邻接矩阵图的深度优先搜索
+/*邻接矩阵图的深度优先搜索(类似于树的先序遍历)
 沿着某个顶点搜索，并且每次访问过后将顶点存起来代表着已经访问过了，然后再继续访问下一个顶点
 */
 void DFS(Graph *g, int v, int *visited[])
@@ -113,3 +114,28 @@ void DFS(Graph *g, int v, int *visited[])
         }
     }
 }   
+
+
+/*邻接矩阵图的深度优先搜索（类似于树的层序遍历）
+*/
+void BFS(Graph *g, int v, int *visited[])
+{
+    LkQue Q;
+    printf("，%d", v);
+    visited[v] = 1; //标志着已经访问过
+    InitQueue(&Q);
+    EnQueue(&Q, v);
+
+    int i,j;
+    while(!EmptyQueue(Q)){
+        i = GetHead(Q);
+        OutQueue(&Q);
+        for(int j=0; j<g->vexnum; j++){
+            if (g->arcs[i][j] && !visited[j]){ //如果是邻结点，并没有访问过
+                printf("，%d", j);
+                visited[j] = 1;
+                EnQueue(&Q, j); // 邻结点入队列
+            }
+        }
+    }
+}
