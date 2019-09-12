@@ -118,3 +118,23 @@ void BFS(Graph g, int v, int *visited[])
         }
     }
 }
+
+//计算一个图中有多少个连通分量（最大多少个互不连通的子图数)
+int Count_Component(Graph g)
+{
+    int count=0, v;
+    int visited[g.vexnum];
+    for(int v=0; v<g.vexnum; v++){visited[v]=0} // 初始化都为0，代表没有被访问过
+
+    for(int v=0; v<g.vexnum; v++){
+        if(!visited[v]){
+            count++; //计数加1
+            printf("\n第 %d 个连通分量包含以下顶点：")
+            BFS(g, 0, &visited);
+        }
+    }
+
+    printf("一共有 %d 个连通分量\n", count);  //count即是连通分量的个数
+
+    return count;
+}
