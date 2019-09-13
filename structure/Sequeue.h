@@ -2,7 +2,7 @@
 #include<stdio.h>
 
 typedef int DataType; //用int代替 DataType 结构型，不然结构变量不能使用 != 或 == 操作符判断
-const int maxsize=4;
+#define maxsize 4
 
 /*顺序队列
 data：[0]，[1]，[2]，[...]，[maxsize-1]
@@ -13,7 +13,7 @@ pop：front++
 */
 typedef struct seqqueu
 {
-    DataType data[20]; //TODO: data[maxsize]会提示出错，只能填数字
+    DataType data[maxsize]; //TODO: data[maxsize]会提示出错，只能填数字
     int front; //队列首指针，取值范围 0 ~ (mazsize-1)
     int rear; //队列尾指针，取值范围 0 ~ (mazsize-1)
 }SeqQue;
@@ -32,7 +32,7 @@ full:  (rear+1)%maxsize == front
 */
 typedef struct cycqueue
 {
-    DataType data[4]; //TODO: data[maxsize]
+    DataType data[maxsize]; //TODO: data[maxsize]
     int front; //队列首指针，取值范围 0 ~ (mazsize-1)
     int rear; //队列尾指针，取值范围 0 ~ (mazsize-1)
 }CycQue;

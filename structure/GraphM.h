@@ -10,12 +10,13 @@ V1  1   0   1   0   => (V1, V0)或<V1, V0>=1，(V1, V1)=0，(V1, V2)=1，(V1, V3)=0
 V2  1   0   0   1   ......
 V3  0   0   0   0   => (V3, V0)或<V1, V0>=0，(V3, V1)=0，(V3, V2)=0，(V3, V3)=0
 */
-const int vnum=20; //Vertex num顶点个数
+// const int vnum=20; //Vertex num顶点个数
+#define vnum 20
 typedef char VertexType ;
 typedef struct gp
 {
-    VertexType vexs[20]; //顶点信息
-    int arcs[20][20]; // 邻接矩阵，两点之间是否有边，1代表有，0则代表没边
+    VertexType vexs[vnum]; //顶点信息
+    int arcs[vnum][vnum]; // 邻接矩阵，两点之间是否有边，1代表有，0则代表没边
     int vexnum, arcnum; //顶点数，边数
 }Graph;
 
@@ -28,8 +29,8 @@ typedef int WeightType;
 const int MAX_INT=32767; //权值：无穷大
 typedef struct gp2
 {
-    VertexType vexs[20]; //顶点信息
-    WeightType arcs[20][20]; //两顶点之间权值，无穷大或无穷小代表无边
+    VertexType vexs[vnum]; //顶点信息
+    WeightType arcs[vnum][vnum]; //两顶点之间权值，无穷大或无穷小代表无边
     int vexnum, arcnum;
 }WGraph;
 
@@ -43,19 +44,6 @@ void CreateGraph(Graph *g)
     // int i, j, n, e, w;
     int i, v1, v2, weight;
     char ch;
-
-    // printf("请输入顶点数和边数（空格隔开）：");
-    // scanf("%d, %d", &n, &e);
-    // g->vexnum=n; //顶点数
-    // g->arcnum=e; //边数    
-
-    // // 读入顶点信息
-    // for(i=0; i<g->vexnum; i++)
-    // {   
-    //     printf("\n请输入顶点名（一个字符）：");
-    //     scanf("%c", &ch);
-    //     g->vexs[i] = ch;
-    // }
 
     // 先构建图的顶点信息
     i=0; 

@@ -31,7 +31,7 @@ typedef struct vexnode //头结点
 {
     int vertex; //顶点编号
     ArcNode *firstarc; //指向第一条边的指针
-}AdjList[20];
+}AdjList[vnum];
 typedef struct gp
 {
     AdjList adjlist;
@@ -124,12 +124,12 @@ int Count_Component(Graph g)
 {
     int count=0, v;
     int visited[g.vexnum];
-    for(int v=0; v<g.vexnum; v++){visited[v]=0} // 初始化都为0，代表没有被访问过
+    for(int v=0; v<g.vexnum; v++){visited[v]=0;} // 初始化都为0，代表没有被访问过
 
     for(int v=0; v<g.vexnum; v++){
         if(!visited[v]){
             count++; //计数加1
-            printf("\n第 %d 个连通分量包含以下顶点：")
+            printf("\n第 %d 个连通分量包含以下顶点：");
             BFS(g, 0, &visited);
         }
     }

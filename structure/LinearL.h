@@ -1,6 +1,5 @@
 #include<stdlib.h>
-// #include "LinearL.h"
-// #include "../structure/LinearL.h"
+//线性表(顺序表)
 
 /* 定义表数据元素结构 
 typedef struct
@@ -21,11 +20,12 @@ full:  length=maxsize-1
 insert：length++
 delete：length--
 */
-const int Maxsize = 7;
+// const int Maxsize = 7;
+#define Maxsize 7
 typedef struct 
 {
     /* data */
-    DataType data[7];  // 存放数据的数组
+    DataType data[Maxsize];  // 存放数据的数组
     int length;  // 顺序表的实际长度
 } SeqList;  // 顺序表名字为 SeqList
 // SeqList student;  // student为顺序表的名称

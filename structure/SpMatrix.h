@@ -3,7 +3,7 @@
 i,j,v
 第i行，第j列的值为v
 */
-const int maxnum = 10;
+#define maxnum 10
 typedef int DataType;
 typedef struct node
 {
@@ -14,7 +14,7 @@ typedef struct node
 typedef struct SpMatrix
 {
     int mu, nu, tu; //行数，列数，非零元素的个数
-    NODE data[10]; //假定三元组的下标的起始值为0
+    NODE data[maxnum]; //假定三元组的下标的起始值为0
 } SpMtx;
 
 
