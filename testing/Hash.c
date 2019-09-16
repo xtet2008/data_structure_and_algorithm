@@ -5,6 +5,10 @@ void main(){
     LinkHash HP; //创建散列表
     CreateLinkHash(HP, arr, 11);
     PrintLinkHash(HP);
+
     DeleteLinkHash(12, HP);
+    printf("\n\nafter the value 12 deleted.");
+    PrintLinkHash(HP);
+
     getch();
 }

@@ -81,7 +81,7 @@ void DeleteLinkHash(KeyType key, LinkHash HP)
 }
 
 void PrintLinkHash(LinkHash HP){
-    printf("print for link hash start ------------------");
+    printf("\nprint for link hash start ------------------");
 
     for(int i=0; i<length; i++){
         Pointer p = HP[i];
