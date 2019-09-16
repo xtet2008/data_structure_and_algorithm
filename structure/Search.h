@@ -147,7 +147,7 @@ BinTree Search_Insert_BST(BinTree bst, KeyType key, BinTree parent)
         if(key == bst->key){
             return bst; //查找成功时返回bst作为结果
         }else{
-            parent = bst; //TODO: check强行把值改过去，不然按地址传递，bst的指针地址不会保存在parent指针地址上，导致parent永远无法改变
+            // parent = bst; //TODO: check强行把值改过去，不然按地址传递，bst的指针地址不会保存在parent指针地址上，导致parent永远无法改变
             if(key < bst->key){
                 return Search_Insert_BST(bst->lchild, key, bst); //继续在左子树中递归查找
             }else{
@@ -164,7 +164,7 @@ int InsertBST(BinTree bst, KeyType key)
 {   
     BinTree p, t, parent=(BinTree *)malloc(sizeof(BinTree));
     parent->key = NULL;
-    t=Search_Insert_BST(bst, key, parent);
+    t=Search_Insert_BST(bst, key, parent); // TODO: should parent的值在这里永远改变不了，按地址传递应该是可以改变的，可能是编译器的问题
     if(t==NULL){
         //查找不成功插入
         p=malloc(sizeof(BinTree));
