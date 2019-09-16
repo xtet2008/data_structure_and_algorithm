@@ -18,11 +18,21 @@ void main(){
     fflush(stdin);
     printf("\nBinary Search£∫%d", SearchBin(T, 17));
 
-    BinTree T1=CreateBinTree();
-    BinTree S1=SearchBST(T1, 76);
+    if (0){
+        BinTree T1=CreateBinTree();
+        BinTree S1=SearchBST(T1, 76);
 
-    BinTree T2=CreateBinTree();
-    BinTree S2=SearchBST(T2, 22);
-    
+        BinTree T2=CreateBinTree();
+        BinTree S2=SearchBST(T2, 22);
+    }
+
+    int tree_arr[7] = {50, 48, 24, 55, 53, 50, 90};
+    int length2=7;
+    BinTree T3=malloc(sizeof(BinTree));
+    T3->key = NULL; //≥ı ºªØ
+    for (int i=0; i<length2; i++){
+        InsertBST(T3, tree_arr[i]);
+    }
+
     getch();
 }

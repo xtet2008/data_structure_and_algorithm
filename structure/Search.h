@@ -60,6 +60,7 @@ typedef struct btnode
     struct btnode *lchild, *rchild; //指向左右孩子的指针
 }BSTNode, *BinTree; //BinTree为指向二叉链表结点的指针类型
 
+
 //动态创建二叉排序树 (左 <父 <右)
 BinTree CreateBinTree(){
     BinTree T = malloc(sizeof(BinTree));
@@ -131,5 +132,55 @@ BinTree SearchBST(BinTree bst, KeyType key){
         return SearchBST(bst->lchild, key); //继续在左子树中查找
     }else{
         return SearchBST(bst->rchild, key); //继续在右子树中查找
+    }
+}
+
+//二叉排序树的查找插入（如果找不到就插入）
+BinTree Search_Insert_BST(BinTree bst, KeyType key, BinTree parent)
+/* 在根指针bst所指的二叉排序树上递归查找键值等于 key的结点，
+若成功，则返回指向该结点的指针，否则返回NULL，指针f指向查到结点的双亲，初始值为NULL
+*/
+{
+    if(bst==NULL || bst->key==NULL){
+        return NULL; //查找不成功时返回值
+    }else{
+        if(key == bst->key){
+            return bst; //查找成功时返回bst作为结果
+        }else{
+            parent = bst; //TODO: check强行把值改过去，不然按地址传递，bst的指针地址不会保存在parent指针地址上，导致parent永远无法改变
+            if(key < bst->key){
+                return Search_Insert_BST(bst->lchild, key, bst); //继续在左子树中递归查找
+            }else{
+                return Search_Insert_BST(bst->rchild, key, bst); //继续在右子树中递归查找
+            }
+        }
+    }
+}
+
+//二叉排序树插入
+
+int InsertBST(BinTree bst, KeyType key)
+// 若根指针bst所指的二叉排序树上无键值为key的结点，则插入这个结点，并返回1；否则返回0
+{   
+    BinTree p, t, parent=(BinTree *)malloc(sizeof(BinTree));
+    parent->key = NULL;
+    t=Search_Insert_BST(bst, key, parent);
+    if(t==NULL){
+        //查找不成功插入
+        p=malloc(sizeof(BinTree));
+        p->key = key;
+        p->lchild = NULL;
+        p->rchild = NULL;
+        if(parent->key == NULL){
+            *bst = *p; //被插入结点p为新的根结点
+        }else if(key < parent->key){
+            parent->lchild = p; //被插入结点p为f左孩子
+        }else{
+            parent->rchild = p; //被插入结点p为f右孩子
+        }
+
+        return 1;
+    }else{
+        return 0; //查找成功不用插入
     }
 }
