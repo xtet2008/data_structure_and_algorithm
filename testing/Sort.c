@@ -45,8 +45,15 @@ void main(){
     printf("\n\n\nHeap sorting start ---------");
     List LS5;
     memcpy(LS5, LS, sizeof(LS));
-    heap_sort(LS5, n); //选择排序
+    heap_sort(LS5, n); //堆排序
     printf("\nHeap insert sorting end ---------");
+
+    printf("\n\n\nMerge sorting start ---------");
+    List LS6;
+    memcpy(LS6, LS, sizeof(LS));
+    LS6[n+1].key = 14; //特意添加一个元素，使长度为其数，造成归并的时候有尾巴元素没有被归并到的情况，方便测试和调试
+    merge_sort(LS6, n+1); //合并(二路归并)排序
+    printf("\nMerge insert sorting end ---------");
 
     getch();
 }
